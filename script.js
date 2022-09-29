@@ -4,85 +4,84 @@ const synth = window.speechSynthesis;
 const data = [
   {
     id: "0",
-    title: "Division of Work",
-    desc: "Henri believed that segregating work in the workforce amongst the worker will enhance the quality of the product. Similarly, he also concluded that the division of work improves the productivity, efficiency, accuracy and speed of the workers. This principle is appropriate for both the managerial as well as a technical work level.",
-    keywords: "",
+    title : "Principle of Principle of Division of Work",
+    desc: "According to this principle the <strong>whole work must be divided into small tasks or units</strong> and instead of assigning the whole work to one person one task or unit of work should be assigned to one person according to the capability, qualification and experience of the person. When a person is performing a part of job again and again he will become perfect and specialized in doing that and the efficiency level will improve. Fayol said not only the factory work but technical, managerial and skill jobs should also be divided into small segments for specialization.",
   },
   {
     id: "1",
-    title: "Authority and Responsibility",
-    desc: "These are the two key aspects of management. Authority facilitates the management to work efficiently, and responsibility makes them responsible for the work done under their guidance or leadership",
+    title: "Principle of Unity of Command",
+    desc: "According to this principle an employee should receive orders from one boss only because if he is receiving orders from more than one boss then he will get confused and will not be able to understand that whose orders must be executed first and on the other hand, if employees is receiving orders from more bosses he gets chance to give excuses by saying that he was busy in executing the orders of other boss. To avoid confusion and to give no chance of excuse to employee, the orders must come from one boss only. If there are more bosses it can create problem of ego-clash among the superiors as every superior will want his order must be executed by the employee.",
     keywords: "",
   },
   {
     id: "2",
-    title: "Discipline",
-    desc: "Without discipline, nothing can be accomplished. It is the core value for any project or any management. Good performance and sensible interrelation make the management job easy and comprehensive. Employees good behaviour also helps them smoothly build and progress in their professional careers.",
+    title: "Principle of Discipline",
+    desc: "Discipline refers to general rules, regulations for systematic working in an organisation. Discipline does not mean only rules and regulations but it also mean developing commitment in the employees towards organisation as well as towards each other. Fayol insists that discipline is required at superior as well as subordinate level. The disciplinary rules shall not be applicable only on subordinates but discipline requires goods superiors at every level, clear and fair agreement between superior and subordinates.",
     keywords: "",
   },
   {
     id: "3",
-    title: "Unity of Command",
+    title: "Principle of Unity of Command",
     desc: "This means an employee should have only one boss and follow his command. If an employee has to follow more than one boss, there begins a conflict of interest and can create confusion.",
     keywords: "",
   },
   {
     id: "4",
-    title: "Unity of Direction",
+    title: "Principle of Unity of Direction",
     desc: "This means an employee should have only one boss and follow his command. If an employee has to follow more than one boss, there begins a conflict of interest and can create confusion.",
     keywords: "",
   },
   {
     id: "5",
-    title: "Subordination of Individual Interest",
+    title: "Principle of Subordination of Individual Interest",
     desc: "This indicates a company should work unitedly towards the interest of a company rather than personal interest. Be subordinate to the purposes of an organization. This refers to the whole chain of command in a company.",
     keywords: "",
   },
   {
     id: "6",
-    title: "Remuneration",
+    title: "Principle of Remuneration",
     desc: "This plays an important role in motivating the workers of a company. Remuneration can be monetary or non-monetary. However, it should be according to an individual’s efforts they have made.",
     keywords: "",
   },
   {
     id: "7",
-    title: "Centralization",
+    title: "Principle of Centralization",
     desc: "In any company, the management or any authority responsible for the decision-making process should be neutral. However, this depends on the size of an organization. Henri Fayol stressed on the point that there should be a balance between the hierarchy and division of power",
     keywords: "",
   },
   {
     id: "8",
-    title: "Scalar Chain",
+    title: "Principle of Scalar Chain",
     desc: "Fayol on this principle highlights that the hierarchy steps should be from the top to the lowest. This is necessary so that every employee knows their immediate senior also they should be able to contact any, if needed.",
     keywords: "",
   },
   {
     id: "9",
-    title: "Order",
+    title: "Principle of Order",
     desc: "A company should maintain a well-defined work order to have a favourable work culture. The positive atmosphere in the workplace will boost more positive productivity",
     keywords: "",
   },
   {
     id: "10",
-    title: "Equity",
+    title: "Principle of Equity",
     desc: "All employees should be treated equally and respectfully. It’s the responsibility of a manager that no employees face discrimination.",
     keywords: "",
   },
   {
     id: "11",
-    title: "Stability",
+    title: "Principle of Stability",
     desc: "An employee delivers the best if they feel secure in their job. It is the duty of the management to offer job security to their employees.",
     keywords: "",
   },
   {
     id: "12",
-    title: "Initiative",
+    title: "Principle of Initiative",
     desc: "The management should support and encourage the employees to take initiatives in an organization. It will help them to increase their interest and make then worth.",
     keywords: "",
   },
   {
     id: "13",
-    title: "Esprit de Corps",
+    title: "Principle of Esprit de Corps",
     desc: "It is the responsibility of the management to motivate their employees and be supportive of each other regularly. Developing trust and mutual understanding will lead to a positive outcome and work environment.",
     keywords: "",
   },
@@ -102,12 +101,12 @@ addEventListener("DOMContentLoaded", () => {
     recognition.start();
   });
   recognition.addEventListener("start", () => {
-    voiceBtn.innerText = "Speak!!"
+    voiceBtn.innerText = "Speak!!";
     voiceBtn.classList.add("btn-success");
     voiceBtn.classList.remove("btn-primary");
   });
   recognition.addEventListener("end", () => {
-    voiceBtn.innerText = "Voice"
+    voiceBtn.innerText = "Voice";
     voiceBtn.classList.add("btn-primary");
     voiceBtn.classList.remove("btn-success");
   });
@@ -130,7 +129,8 @@ function filterAccordion() {
   const filteredData = [];
   for (let i = 0; i < data.length; i++) {
     const e = data[i].title.toLowerCase();
-    if (e.includes(searchInput.value.toLowerCase())) {
+    const searchText = searchInput.value.toLowerCase();
+    if (e.includes(searchText) || searchText.includes(e)) {
       filteredData.push(data[i]);
     }
   }
@@ -142,7 +142,7 @@ function filterAccordion() {
 }
 function getAccordion(arr) {
   accordionDiv.innerHTML = "";
-  arr.forEach(({ title, id, desc, keywords }) => {
+  arr.forEach(({ title, id, desc, keywords } , i) => {
     accordionDiv.innerHTML += `
           <div class="accordion-item my-3" id="accordionBox${id}">
           <h2 class="accordion-header" id="heading${id}">
@@ -151,7 +151,9 @@ function getAccordion(arr) {
           </h2>
           <div id="collapse${id}" class="accordion-collapse collapse" aria-labelledby="headingOne"
           data-bs-parent="#accordionExample">
-          <div class="accordion-body">${desc}</div>
+          <div class="accordion-body">${desc}<br>
+          <button class="btn btn-primary mt-2" onclick="speak(data[${i}].desc)">Listen</button>
+          </div>
           </div>
           </div>
       `;

@@ -160,7 +160,6 @@ function filterAccordion() {
 
 function speak(text) {
   const utt = new SpeechSynthesisUtterance(text);
-  utt.pitch = 2;
   utt.rate = 1;
   utt.volume = 2;
   synth.speak(utt);

@@ -93,19 +93,21 @@ const recognition = new SpeechRecognition();
 const accordionDiv = document.getElementById("accordionDiv");
 recognition.interimResults = true;
 console.log(recognition);
-addEventListener("beforeunload" , () => {
-  synth.cancel()
-})
+addEventListener("beforeunload", () => {
+  synth.cancel();
+});
 addEventListener("DOMContentLoaded", () => {
   getAccordion(data);
   voiceBtn.addEventListener("click", () => {
     recognition.start();
   });
   recognition.addEventListener("start", () => {
+    voiceBtn.innerText = "Speak!!"
     voiceBtn.classList.add("btn-success");
     voiceBtn.classList.remove("btn-primary");
   });
   recognition.addEventListener("end", () => {
+    voiceBtn.innerText = "Voice"
     voiceBtn.classList.add("btn-primary");
     voiceBtn.classList.remove("btn-success");
   });
@@ -119,25 +121,6 @@ addEventListener("DOMContentLoaded", () => {
   });
   searchInput.addEventListener("input", filterAccordion);
 });
-
-function getAccordion(arr) {
-  accordionDiv.innerHTML = "";
-  arr.forEach(({ title, id, desc, keywords }) => {
-    accordionDiv.innerHTML += `
-          <div class="accordion-item my-3" id="accordionBox${id}">
-          <h2 class="accordion-header" id="heading${id}">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-          data-bs-target="#collapse${id}" aria-expanded="false" aria-controls="collapse${id}">${title}</button>
-          </h2>
-          <div id="collapse${id}" class="accordion-collapse collapse" aria-labelledby="headingOne"
-          data-bs-parent="#accordionExample">
-          <div class="accordion-body">${desc}</div>
-          </div>
-          </div>
-      `;
-  });
-}
-
 function filterAccordion() {
   synth.cancel();
   if (!searchInput.value) {
@@ -157,6 +140,23 @@ function filterAccordion() {
     document.querySelector("[data-bs-toggle]").click();
   }
 }
+function getAccordion(arr) {
+  accordionDiv.innerHTML = "";
+  arr.forEach(({ title, id, desc, keywords }) => {
+    accordionDiv.innerHTML += `
+          <div class="accordion-item my-3" id="accordionBox${id}">
+          <h2 class="accordion-header" id="heading${id}">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapse${id}" aria-expanded="false" aria-controls="collapse${id}">${title}</button>
+          </h2>
+          <div id="collapse${id}" class="accordion-collapse collapse" aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">${desc}</div>
+          </div>
+          </div>
+      `;
+  });
+}
 
 function speak(text) {
   const utt = new SpeechSynthesisUtterance(text);
@@ -164,3 +164,7 @@ function speak(text) {
   utt.volume = 2;
   synth.speak(utt);
 }
+
+// git add .
+// git commit -m "edited"
+// git push

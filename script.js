@@ -93,7 +93,9 @@ const recognition = new SpeechRecognition();
 const accordionDiv = document.getElementById("accordionDiv");
 recognition.interimResults = true;
 console.log(recognition);
-
+addEventListener("beforeunload" , () => {
+  synth.cancel()
+})
 addEventListener("DOMContentLoaded", () => {
   getAccordion(data);
   voiceBtn.addEventListener("click", () => {
@@ -137,7 +139,7 @@ function getAccordion(arr) {
 }
 
 function filterAccordion() {
-  console.log("hey");
+  synth.cancel();
   if (!searchInput.value) {
     getAccordion(data);
     return;
@@ -152,11 +154,14 @@ function filterAccordion() {
   getAccordion(filteredData);
   if (filteredData.length === 1) {
     speak(filteredData[0].desc);
-    document.querySelector("[data-bs-toggle]").click()
+    document.querySelector("[data-bs-toggle]").click();
   }
 }
 
 function speak(text) {
   const utt = new SpeechSynthesisUtterance(text);
+  utt.pitch = 2;
+  utt.rate = 1;
+  utt.volume = 2;
   synth.speak(utt);
 }
